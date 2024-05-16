@@ -1,0 +1,56 @@
+import time
+import hashlib
+
+def leer_hashes(archivo):
+    """
+    Lee un archivo de texto y devuelve un conjunto de hashes.
+    
+    :param archivo: Nombre del archivo de entrada
+    :return: Conjunto de hashes
+    """
+    try:
+        with open(archivo, 'r', encoding='utf-8') as infile:
+            return set(linea.strip() for linea in infile if linea.strip())
+    except FileNotFoundError:
+        print(f"Error: El archivo {archivo} no fue encontrado.")
+        return set()
+    except Exception as e:
+        print(f"Error: {e}")
+        return set()
+
+def busca_comunes(archivo1, archivo2):
+    """
+    Compara dos archivos de texto que contienen hashes y devuelve los hashes comunes.
+    
+    :param archivo1: Nombre del primer archivo de entrada
+    :param archivo2: Nombre del segundo archivo de entrada
+    :return: Conjunto de hashes comunes
+    """
+    start_time = time.time()
+    
+    hashes1 = leer_hashes(archivo1)
+    hashes2 = leer_hashes(archivo2)
+    
+    comunes = hashes1.intersection(hashes2)
+    
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"Tiempo de búsqueda de comunes: {elapsed_time:.4f} segundos")
+    
+    return comunes
+
+def guardar_comunes(comunes, archivo_salida):
+    """
+    Guarda los hashes comunes en un archivo de salida.
+    
+    :param comunes: Conjunto de hashes comunes
+    :param archivo_salida: Nombre del archivo de salida
+    """
+    try:
+        with open(archivo_salida, 'w', encoding='utf-8') as outfile:
+            for hash_comun in comunes:
+                outfile.write(f"{hash_comun}\n")
+        print(f"Los hashes comunes han sido guardados en {archivo_salida}")
+    except Exception as e:
+        print(f"Error: {e}")
+
