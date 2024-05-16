@@ -5,8 +5,8 @@
 archivo_entrada = 'pasajeros_vuelo.txt'
 archivo_salida = 'hashes_pasajeros.txt'
 generar_hashes(archivo_entrada, archivo_salida)
+```
 
-```python
 ## Ejemplo de uso para buscar los hashes iguales
 archivo1 = 'hashes_delincuentes.txt'
 archivo2 = 'hashes_pasajeros.txt'
