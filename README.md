@@ -1,7 +1,7 @@
 # CONSULTA 3- CAI 3
 
-```python
 ## Ejemplo de uso de generar documentos hasheados
+```python
 archivo_entrada = 'pasajeros_vuelo.txt'
 archivo_salida = 'hashes_pasajeros.txt'
 generar_hashes(archivo_entrada, archivo_salida)
