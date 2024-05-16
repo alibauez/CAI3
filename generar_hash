@@ -1,0 +1,41 @@
+import hashlib
+
+
+#FUNCION QUE CALCULA LOS HASHES Y LOS GUARDA EN UN .TXT
+
+def calcular_hash(elemento):
+    """
+    Aplica la función de hashing SHA-256 al elemento y lo convierte a hexadecimal.
+    """
+    return hashlib.sha256(elemento.encode()).hexdigest()
+
+def generar_hashes(archivo_entrada, archivo_salida):
+    """
+    Lee un archivo de texto, calcula el hash SHA-256 de cada línea no vacía,
+    y escribe los resultados en otro archivo.
+
+    :param archivo_entrada: Nombre del archivo de entrada
+    :param archivo_salida: Nombre del archivo de salida
+    """
+    try:
+        # Leer el archivo de entrada
+        with open(archivo_entrada, 'r', encoding='utf-8') as infile:
+            lineas = infile.readlines()
+
+        # Calcular el hash para cada línea no vacía
+        hashes = []
+        for linea in lineas:
+            linea = linea.strip()  # Eliminar espacios en blanco y saltos de línea
+            if linea:  # Verificar que la línea no esté vacía
+                hash_linea = calcular_hash(linea)
+                hashes.append(f"{hash_linea}\n")
+
+        # Escribir los hashes en el archivo de salida
+        with open(archivo_salida, 'w', encoding='utf-8') as outfile:
+            outfile.writelines(hashes)
+
+        print(f"Los hashes han sido calculados y guardados en {archivo_salida}")
+    except FileNotFoundError:
+        print(f"Error: El archivo {archivo_entrada} no fue encontrado.")
+    except Exception as e:
+        print(f"Error: {e}")
